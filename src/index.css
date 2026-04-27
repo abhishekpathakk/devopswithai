@@ -29,23 +29,22 @@
 }
 
 .custom-cursor {
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
   background: var(--color-accent);
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
   z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.2s ease-out, width 0.3s, height 0.3s, background 0.3s;
+  transition: transform 0.15s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 20px var(--color-accent-glow);
+  box-shadow: 0 0 15px var(--color-accent-glow);
 }
 
 .custom-cursor.hovering {
-  transform: translate(-50%, -50%) scale(3);
-  background: white;
-  mix-blend-mode: difference;
+  transform: translate(-50%, -50%) scale(4);
+  background: var(--color-accent);
+  opacity: 0.15;
 }
 
 * {
