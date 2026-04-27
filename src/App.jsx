@@ -11,8 +11,33 @@ import {
   Moon,
   Sun
 } from 'lucide-react';
+import CustomCursor from './components/CustomCursor';
 import NeuralBackground from './components/NeuralBackground';
 import './index.css';
+
+const Counter = ({ value, duration = 2 }) => {
+  const [count, setCount] = React.useState(0);
+  const nodeRef = React.useRef(null);
+
+  React.useEffect(() => {
+    let start = 0;
+    const end = parseInt(value.replace(/[^0-9]/g, ''));
+    if (start === end) return;
+
+    let totalMiliseconds = duration * 1000;
+    let incrementTime = totalMiliseconds / end;
+
+    let timer = setInterval(() => {
+      start += 1;
+      setCount(start);
+      if (start === end) clearInterval(timer);
+    }, incrementTime);
+
+    return () => clearInterval(timer);
+  }, [value, duration]);
+
+  return <>{count}{value.replace(/[0-9]/g, '')}</>;
+};
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -49,6 +74,7 @@ function App() {
 
   return (
     <div className="app">
+      <CustomCursor />
       {/* Navigation */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="container nav-container">
@@ -184,20 +210,20 @@ function App() {
             variants={staggerContainer}
           >
             <motion.div variants={fadeInUp}>
-              <div className="stat-number">Fortune 500</div>
-              <div className="stat-label">Trusted Partners</div>
+              <div className="stat-number"><Counter value="500" /></div>
+              <div className="stat-label">Fortune 500 Trusted</div>
             </motion.div>
             <motion.div variants={fadeInUp}>
-              <div className="stat-number">99.99%</div>
+              <div className="stat-number"><Counter value="99.99%" /></div>
               <div className="stat-label">Uptime Delivered</div>
             </motion.div>
             <motion.div variants={fadeInUp}>
-              <div className="stat-number">50M+</div>
-              <div className="stat-label">Predictions Served Daily</div>
+              <div className="stat-number"><Counter value="50" />M+</div>
+              <div className="stat-label">Daily Predictions</div>
             </motion.div>
             <motion.div variants={fadeInUp}>
-              <div className="stat-number">40%</div>
-              <div className="stat-label">Faster Time-to-Market</div>
+              <div className="stat-number"><Counter value="40%" /></div>
+              <div className="stat-label">Faster Deployment</div>
             </motion.div>
           </motion.div>
         </div>

@@ -5,6 +5,7 @@
   --color-text-secondary: #4a4a4a;
   --color-accent: #000000;
   --color-accent-hover: #333333;
+  --color-accent-glow: rgba(0, 0, 0, 0.1);
   --color-border: #eaeaea;
   --transition-speed: 0.3s;
   --font-main: 'Inter', sans-serif;
@@ -17,7 +18,34 @@
   --color-text-secondary: #a0a0a0;
   --color-accent: #ffffff;
   --color-accent-hover: #cccccc;
+  --color-accent-glow: rgba(255, 255, 255, 0.2);
   --color-border: #333333;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.2s ease-out, width 0.3s, height 0.3s, background 0.3s;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 20px var(--color-accent-glow);
+}
+
+.custom-cursor.hovering {
+  transform: translate(-50%, -50%) scale(3);
+  background: white;
+  mix-blend-mode: difference;
 }
 
 * {
