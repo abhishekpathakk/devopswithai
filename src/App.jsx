@@ -11,6 +11,7 @@ import {
   Moon,
   Sun
 } from 'lucide-react';
+import NeuralBackground from './components/NeuralBackground';
 import './index.css';
 
 function App() {
@@ -71,8 +72,9 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="hero">
-        <div className="container">
+      <section className="hero" style={{ position: 'relative', overflow: 'hidden' }}>
+        <NeuralBackground />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <motion.div 
             className="hero-content"
             initial="hidden"
