@@ -135,8 +135,8 @@ function App() {
 
             <motion.div variants={fadeInUp} className="service-card">
               <CloudCog className="service-icon" />
-              <h3>MLOps Infrastructure</h3>
-              <p>Bridge the gap between data science and operations. We build scalable platforms for model training, deployment, and lifecycle management.</p>
+              <h3>End-to-End MLOps Ecosystems</h3>
+              <p>Streamlining the lifecycle from research to production. We architect automated pipelines for model training, orchestration, and real-time monitoring to ensure your AI scales reliably.</p>
             </motion.div>
 
             <motion.div variants={fadeInUp} className="service-card">
