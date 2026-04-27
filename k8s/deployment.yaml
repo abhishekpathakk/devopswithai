@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devopswithai-frontend
+  labels:
+    app: devopswithai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devopswithai
+  template:
+    metadata:
+      labels:
+        app: devopswithai
+    spec:
+      containers:
+      - name: frontend
+        image: IMAGE_URL_PLACEHOLDER
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "32Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
