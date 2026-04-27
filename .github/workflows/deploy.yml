@@ -13,6 +13,10 @@ env:
   GAR_LOCATION: us-central1
   REPOSITORY: devops-repo
 
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
