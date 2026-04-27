@@ -86,7 +86,7 @@ function App() {
               Architecting Intelligence.<br />Engineering Scale.
             </motion.h1>
             <motion.p variants={fadeInUp}>
-              We are a premier consultancy firm specializing in Artificial Intelligence and DevOps. We help forward-thinking enterprises build resilient infrastructure and deploy transformative AI models.
+              Enterprise Cloud-Native Solutions, AI Integration, and Global-Scale Infrastructure for the Modern World.
             </motion.p>
             <motion.div variants={fadeInUp} className="hero-buttons">
               <a href="#expertise" className="btn btn-primary">
@@ -129,8 +129,8 @@ function App() {
 
             <motion.div variants={fadeInUp} className="service-card">
               <Network className="service-icon" />
-              <h3>DevOps Transformation</h3>
-              <p>Accelerate your delivery pipelines with robust CI/CD frameworks, infrastructure as code, and advanced automation techniques.</p>
+              <h3>Scalable Cloud & DevOps Architecture</h3>
+              <p>Designing resilient, high-availability systems on GCP. We specialize in Kubernetes orchestration, microservices patterns, and cost-optimized cloud transformations.</p>
             </motion.div>
 
             <motion.div variants={fadeInUp} className="service-card">
