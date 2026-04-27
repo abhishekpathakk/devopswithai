@@ -148,7 +148,30 @@ function App() {
         </div>
       </section>
 
-      {/* Stats */}
+      {/* About Section for SEO */}
+      <section id="about" className="section" style={{ backgroundColor: 'var(--color-bg-secondary)' }}>
+        <div className="container">
+          <div className="stats-grid" style={{ gridTemplateColumns: '1fr' }}>
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}
+            >
+              <h2 className="mb-6">The Engineer Behind the Architecture</h2>
+              <p className="text-xl mb-8">
+                As a seasoned <strong>Software Engineer</strong> and <strong>DevOps Specialist</strong>, Abhishek Pathak brings years of experience in building high-scale distributed systems and intelligent AI platforms. My mission is to bridge the gap between complex codebases and production-ready infrastructure.
+              </p>
+              <div className="hero-buttons" style={{ justifyContent: 'center' }}>
+                <a href="https://www.linkedin.com/in/abhishekpathakk9/" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                  View LinkedIn Profile
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
       <section id="impact" className="section stats">
         <div className="container">
           <motion.div 
