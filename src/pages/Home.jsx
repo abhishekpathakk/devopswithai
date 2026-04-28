@@ -31,14 +31,9 @@ const Counter = ({ value, duration = 2 }) => {
 };
 
 const Home = () => {
-  const [isPipelineExpanded, setIsPipelineExpanded] = React.useState(false);
-
   const handleExploreClick = (e) => {
     e.preventDefault();
-    setIsPipelineExpanded(true);
-    setTimeout(() => {
-      document.getElementById('pipeline-section')?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+    document.getElementById('pipeline-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const fadeInUp = {
@@ -88,7 +83,7 @@ const Home = () => {
       </section>
 
       <div id="pipeline-section">
-        <PipelineAnimation isExpanded={isPipelineExpanded} />
+        <PipelineAnimation />
       </div>
       <LogoTicker />
 
