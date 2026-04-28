@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import CustomCursor from './components/CustomCursor';
 import NeuralBackground from './components/NeuralBackground';
+import TestimonialSlider from './components/TestimonialSlider';
 import './index.css';
 
 const Counter = ({ value, duration = 2 }) => {
@@ -267,6 +268,23 @@ function App() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section id="testimonials" className="section" style={{ backgroundColor: 'var(--color-bg-secondary)' }}>
+        <div className="container">
+          <motion.div 
+            className="section-title"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
+            <h2>Client Success Stories</h2>
+            <p style={{ maxWidth: '600px', margin: '0 auto' }}>Hear from leaders who have transformed their infrastructure with our expertise.</p>
+          </motion.div>
+          <TestimonialSlider />
         </div>
       </section>
 
