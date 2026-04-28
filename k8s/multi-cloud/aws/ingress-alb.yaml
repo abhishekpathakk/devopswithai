@@ -1,0 +1,40 @@
+# AWS Application Load Balancer (ALB) Ingress Configuration
+# Prerequisites: 
+# 1. AWS Load Balancer Controller installed in your EKS cluster
+# 2. ACM Certificate created in AWS for your domain
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: devopswithai-ingress-aws
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    # Replace with your actual AWS ACM Certificate ARN
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:REGION:ACCOUNT:certificate/YOUR_CERTIFICATE_ID"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+spec:
+  rules:
+  - host: devopswithai.in
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: devopswithai-service
+            port:
+              number: 80
+  - host: www.devopswithai.in
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: devopswithai-service
+            port:
+              number: 80
