@@ -511,6 +511,101 @@ p {
   transform: scale(1.3);
 }
 
+/* Pipeline Animation */
+.pipeline-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 4rem auto;
+  position: relative;
+  height: 400px;
+}
+
+.pipeline-labels {
+  position: absolute;
+  top: -30px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pipeline-label {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-secondary);
+  padding: 0.25rem 1rem;
+  border-radius: 100px;
+  border: 1px solid var(--color-border);
+}
+
+.pipeline-svg-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.pipeline-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Logo Ticker */
+.logo-ticker-section {
+  padding: 4rem 0;
+  background-color: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.ticker-heading {
+  text-align: center;
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 3rem;
+}
+
+.ticker-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.ticker-track {
+  display: flex;
+  animation: scroll 30s linear infinite;
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3rem;
+  min-width: max-content;
+}
+
+.ticker-logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.ticker-logo-text:hover {
+  opacity: 1;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.33%); }
+}
+
 /* Responsive */
 @media (max-width: 992px) {
   h1 { font-size: 3rem; }

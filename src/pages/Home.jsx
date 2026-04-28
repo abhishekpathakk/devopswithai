@@ -4,6 +4,8 @@ import { ArrowRight, Cpu, Network, CloudCog, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import NeuralBackground from '../components/NeuralBackground';
 import TestimonialSlider from '../components/TestimonialSlider';
+import PipelineAnimation from '../components/PipelineAnimation';
+import LogoTicker from '../components/LogoTicker';
 
 const Counter = ({ value, duration = 2 }) => {
   const [count, setCount] = React.useState(0);
@@ -74,6 +76,9 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
+
+      <PipelineAnimation />
+      <LogoTicker />
 
       {/* Expertise / Services */}
       <section id="expertise" className="section">
