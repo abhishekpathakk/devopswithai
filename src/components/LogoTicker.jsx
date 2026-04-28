@@ -1,8 +1,10 @@
 import React from 'react';
 
-// Using simple SVG placeholders or recognizable text for logos to keep it lightweight and zero-dependency
-const logos = [
-  "Kubernetes", "Docker", "GCP", "AWS", "Azure", "Terraform", "Databricks", "Airflow", "PyTorch", "TensorFlow", "React"
+const companies = [
+  "Klarna", "Vanta", "Clay", "Rippling", "Lyft", 
+  "Harvey", "Abridge", "Cloudflare", "Workday", "Cisco", 
+  "Mercor", "Nu", "Monday.com", "Podium", "Bridgewater", 
+  "LinkedIn", "Coinbase"
 ];
 
 const LogoTicker = () => {
@@ -12,19 +14,19 @@ const LogoTicker = () => {
       <div className="ticker-wrapper">
         <div className="ticker-track">
           {/* First set of logos */}
-          {logos.map((logo, index) => (
+          {companies.map((logo, index) => (
             <div key={`logo-1-${index}`} className="ticker-item">
               <span className="ticker-logo-text">{logo}</span>
             </div>
           ))}
           {/* Duplicated for infinite scroll effect */}
-          {logos.map((logo, index) => (
+          {companies.map((logo, index) => (
             <div key={`logo-2-${index}`} className="ticker-item">
               <span className="ticker-logo-text">{logo}</span>
             </div>
           ))}
           {/* Triple for very wide screens */}
-          {logos.map((logo, index) => (
+          {companies.map((logo, index) => (
             <div key={`logo-3-${index}`} className="ticker-item">
               <span className="ticker-logo-text">{logo}</span>
             </div>

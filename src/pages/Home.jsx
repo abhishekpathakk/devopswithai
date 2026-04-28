@@ -31,6 +31,16 @@ const Counter = ({ value, duration = 2 }) => {
 };
 
 const Home = () => {
+  const [isPipelineExpanded, setIsPipelineExpanded] = React.useState(false);
+
+  const handleExploreClick = (e) => {
+    e.preventDefault();
+    setIsPipelineExpanded(true);
+    setTimeout(() => {
+      document.getElementById('pipeline-section')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
@@ -66,9 +76,9 @@ const Home = () => {
               Enterprise Cloud-Native Solutions, AI Integration, and Global-Scale Infrastructure for the Modern World.
             </motion.p>
             <motion.div variants={fadeInUp} className="hero-buttons">
-              <a href="#expertise" className="btn btn-primary">
-                Explore Our Services <ArrowRight size={18} style={{ marginLeft: '8px' }} />
-              </a>
+              <button onClick={handleExploreClick} className="btn btn-primary">
+                Explore Our Pipeline <ArrowRight size={18} style={{ marginLeft: '8px' }} />
+              </button>
               <a href="#contact" className="btn btn-outline">
                 Book a Consultation
               </a>
@@ -77,7 +87,9 @@ const Home = () => {
         </div>
       </section>
 
-      <PipelineAnimation />
+      <div id="pipeline-section">
+        <PipelineAnimation isExpanded={isPipelineExpanded} />
+      </div>
       <LogoTicker />
 
       {/* Expertise / Services */}
