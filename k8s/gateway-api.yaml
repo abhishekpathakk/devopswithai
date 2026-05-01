@@ -35,6 +35,13 @@ spec:
   - "devopswithai.in"
   - "www.devopswithai.in"
   rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/search
+    backendRefs:
+    - name: search-api-service
+      port: 80
   - backendRefs:
     - name: devopswithai-service
       port: 80
