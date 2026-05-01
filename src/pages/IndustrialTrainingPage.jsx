@@ -19,13 +19,25 @@ const IndustrialTrainingPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // In a real scenario, this would post to an API that dumps the payload to a GCS bucket.
-    console.log("Submitting form data to backend...", formData);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setSubmitted(true);
-    }, 1000);
+    try {
+      const res = await fetch('/api/enroll', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        console.error("Enrollment failed", await res.text());
+        alert("There was an error submitting your form. Please try again.");
+      }
+    } catch (error) {
+      console.error("Network error during enrollment", error);
+      alert("Network error. Please try again.");
+    }
   };
 
   return (
