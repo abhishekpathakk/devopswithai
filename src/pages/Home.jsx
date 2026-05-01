@@ -6,6 +6,7 @@ import NeuralBackground from '../components/NeuralBackground';
 import TestimonialSlider from '../components/TestimonialSlider';
 import PipelineAnimation from '../components/PipelineAnimation';
 import LogoTicker from '../components/LogoTicker';
+import IndustrialTraining from '../components/IndustrialTraining';
 
 const Counter = ({ value, duration = 2 }) => {
   const [count, setCount] = React.useState(0);
@@ -86,6 +87,9 @@ const Home = () => {
         <PipelineAnimation />
       </div>
       <LogoTicker />
+
+      {/* Industrial Training Section */}
+      <IndustrialTraining />
 
       {/* Expertise / Services */}
       <section id="expertise" className="section">
