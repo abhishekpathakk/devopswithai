@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: search-api
-        # Replace with your Docker Hub image once built (e.g., abhishekpathak1111/devopswithai-search:v4)
-        image: abhishekpathak1111/devopswithai-search:v4
+        # Replace with your Docker Hub image once built (e.g., abhishekpathak1111/devopswithai-search:v5)
+        image: abhishekpathak1111/devopswithai-search:v5
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
