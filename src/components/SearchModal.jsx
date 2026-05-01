@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Search, X, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const SearchModal = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isOpen) {
@@ -47,6 +49,11 @@ const SearchModal = ({ isOpen, onClose }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
+  const handleResultClick = (id) => {
+    onClose();
+    navigate(`/services/${id}`);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -76,7 +83,7 @@ const SearchModal = ({ isOpen, onClose }) => {
               <div className="search-loading">Searching...</div>
             ) : results.length > 0 ? (
               results.map(item => (
-                <div key={item.id} className="search-result-item">
+                <div key={item.id} className="search-result-item" onClick={() => handleResultClick(item.id)}>
                   <div className="search-result-icon">
                     <BookOpen size={18} />
                   </div>
