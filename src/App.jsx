@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { BrainCircuit, Moon, Sun } from 'lucide-react';
+import { BrainCircuit, Moon, Sun, Search } from 'lucide-react';
 import CustomCursor from './components/CustomCursor';
 import Home from './pages/Home';
 import ServicePage from './pages/ServicePage';
+import SearchModal from './components/SearchModal';
 import './index.css';
 
 function App() {
   const [theme, setTheme] = useState('light');
   const [scrolled, setScrolled] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -31,6 +33,7 @@ function App() {
   return (
     <div className="app">
       <CustomCursor />
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       
       {/* Navigation */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
@@ -53,6 +56,10 @@ function App() {
               <Link to="/" className="nav-link">Home</Link>
             )}
             
+            <button onClick={() => setIsSearchOpen(true)} className="btn btn-outline" style={{ padding: '0.5rem', borderRadius: '50%', border: 'none' }} aria-label="Search">
+              <Search size={20} />
+            </button>
+
             <button onClick={toggleTheme} className="btn btn-outline" style={{ padding: '0.5rem', borderRadius: '50%' }} aria-label="Toggle Theme">
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
