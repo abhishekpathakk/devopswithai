@@ -21,6 +21,11 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
+// Root health check for GCP Load Balancer
+app.get('/', (req, res) => {
+  res.status(200).send('OK');
+});
+
 // Main Search Endpoint (Mimics the 'Search API' hexagon)
 app.get('/api/search', (req, res) => {
   const query = req.query.q;
