@@ -4,6 +4,7 @@ import { BrainCircuit, Moon, Sun, Search } from 'lucide-react';
 import CustomCursor from './components/CustomCursor';
 import Home from './pages/Home';
 import ServicePage from './pages/ServicePage';
+import IndustrialTrainingPage from './pages/IndustrialTrainingPage';
 import SearchModal from './components/SearchModal';
 import './index.css';
 
@@ -51,9 +52,13 @@ function App() {
                 <a href="#expertise" className="nav-link">Expertise</a>
                 <a href="#process" className="nav-link">Process</a>
                 <a href="#impact" className="nav-link">Impact</a>
+                <Link to="/industrial-training" className="nav-link" style={{ color: 'var(--color-accent)' }}>Industrial Training</Link>
               </>
             ) : (
-              <Link to="/" className="nav-link">Home</Link>
+              <>
+                <Link to="/" className="nav-link">Home</Link>
+                <Link to="/industrial-training" className="nav-link" style={{ color: 'var(--color-accent)' }}>Industrial Training</Link>
+              </>
             )}
             
             <button onClick={() => setIsSearchOpen(true)} className="btn btn-outline" style={{ padding: '0.5rem', borderRadius: '50%', border: 'none' }} aria-label="Search">
@@ -73,6 +78,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services/:serviceId" element={<ServicePage />} />
+          <Route path="/industrial-training" element={<IndustrialTrainingPage />} />
         </Routes>
       </main>
 
