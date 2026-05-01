@@ -1,0 +1,42 @@
+[
+  { 
+    "id": "mlops", 
+    "title": "Advanced MLOps Pipeline Implementation", 
+    "description": "Learn to build automated CI/CD/CT pipelines for machine learning models using MLflow and Kubernetes.", 
+    "category": "MLOps", 
+    "tags": ["AI", "Kubernetes", "Automation"], 
+    "level": "Advanced" 
+  },
+  { 
+    "id": "db-migration", 
+    "title": "Zero-Downtime Database Migration", 
+    "description": "Master the art of migrating legacy SQL databases to Google Cloud Spanner without any downtime using Datastream.", 
+    "category": "Cloud Migration", 
+    "tags": ["Spanner", "GCP", "Datastream"], 
+    "level": "Expert" 
+  },
+  { 
+    "id": "ai", 
+    "title": "Generative AI Enterprise Strategy", 
+    "description": "Strategic planning for deploying LLMs and RAG architectures securely within enterprise environments.", 
+    "category": "AI Strategy", 
+    "tags": ["GenAI", "LLM", "Security"], 
+    "level": "Intermediate" 
+  },
+  { 
+    "id": "dataops", 
+    "title": "Databricks & Airflow DataOps", 
+    "description": "Build resilient data lakehouses and orchestrate complex ETL pipelines with Apache Airflow.", 
+    "category": "DataOps", 
+    "tags": ["Data Engineering", "Databricks", "Airflow"], 
+    "level": "Intermediate" 
+  },
+  { 
+    "id": "cloud-migration", 
+    "title": "Multi-Cloud Azure to GCP Refactoring", 
+    "description": "Hands-on training on shifting workloads from Azure to GCP, mapping identity, and optimizing costs.", 
+    "category": "Cloud Migration", 
+    "tags": ["Azure", "GCP", "Cost Optimization"], 
+    "level": "Advanced" 
+  }
+]
