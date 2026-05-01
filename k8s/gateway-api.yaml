@@ -39,6 +39,9 @@ spec:
     - path:
         type: PathPrefix
         value: /api/search
+    - path:
+        type: PathPrefix
+        value: /api/enroll
     backendRefs:
     - name: search-api-service
       port: 80
