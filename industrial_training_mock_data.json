@@ -1,20 +1,2 @@
-[
-  {
-    "id": "1001",
-    "name": "Abhishek Pathak",
-    "email": "abhishek@devopswithai.in",
-    "phone": "+91 9876543210",
-    "college": "Dehradun University",
-    "year": "4th Year",
-    "enrolled_at": "2026-05-01T10:00:00Z"
-  },
-  {
-    "id": "1002",
-    "name": "Priya Sharma",
-    "email": "priya.sharma@example.com",
-    "phone": "+91 9123456789",
-    "college": "Uttaranchal University",
-    "year": "3rd Year",
-    "enrolled_at": "2026-05-01T11:30:00Z"
-  }
-]
+{"id": "1001", "name": "Abhishek Pathak", "email": "abhishek@devopswithai.in", "phone": "+91 9876543210", "college": "Dehradun University", "year": "4th Year", "enrolled_at": "2026-05-01T10:00:00Z"}
+{"id": "1002", "name": "Priya Sharma", "email": "priya.sharma@example.com", "phone": "+91 9123456789", "college": "Uttaranchal University", "year": "3rd Year", "enrolled_at": "2026-05-01T11:30:00Z"}

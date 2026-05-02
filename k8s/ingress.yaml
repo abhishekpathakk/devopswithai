@@ -4,19 +4,31 @@ metadata:
   name: devopswithai-ingress
   annotations:
     kubernetes.io/ingress.class: "gce"
+    # GKE specific annotations for SSL and Static IP
     networking.gke.io/managed-certificates: "devopswithai-cert"
-    kubernetes.io/ingress.global-static-ip-name: "devopswithai-ip" # Optional: if you reserve a static IP
+    kubernetes.io/ingress.global-static-ip-name: "devopswithai-ip"
     networking.gke.io/v1beta1.FrontendConfig: "devopswithai-frontend-config"
 spec:
-  defaultBackend:
-    service:
-      name: devopswithai-service
-      port:
-        number: 80
   rules:
   - host: devopswithai.in
     http:
       paths:
+      # Specific API paths must come first
+      - path: /api/search
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: search-api-service
+            port:
+              number: 80
+      - path: /api/enroll
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: search-api-service
+            port:
+              number: 80
+      # Default frontend path
       - path: /
         pathType: Prefix
         backend:
@@ -27,6 +39,20 @@ spec:
   - host: www.devopswithai.in
     http:
       paths:
+      - path: /api/search
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: search-api-service
+            port:
+              number: 80
+      - path: /api/enroll
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: search-api-service
+            port:
+              number: 80
       - path: /
         pathType: Prefix
         backend:

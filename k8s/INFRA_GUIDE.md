@@ -9,16 +9,21 @@ This document outlines the architecture, troubleshooting steps, and deployment w
 The platform is built using a modern, scalable, and secure cloud-native stack on **Google Cloud Platform (GCP)**.
 
 - **Frontend**: React (Vite) static application with Framer Motion animations.
-- **Containerization**: Multi-stage Docker build (Node 22 -> Nginx Alpine).
-- **Container Registry**: Google Artifact Registry (Private).
+- **Search API (Microservice)**: Node.js (Express) backend with `Fuse.js` for in-memory fuzzy search.
+- **BigQuery Integration**: Real-time enrollment data streaming from Search API to GCP BigQuery.
+- **Containerization**: 
+  - Frontend: Multi-stage Docker build (Node 22 -> Nginx Alpine).
+  - Search API: Lightweight Node.js Docker image (`node:22-alpine`).
 - **Orchestration**: Google Kubernetes Engine (GKE) Standard.
 - **Infrastructure**:
   - **Cluster**: `devops-cluster-v2` (Region: `us-central1`).
-  - **Compute**: `e2-small` instances (2GB RAM) to ensure stability for GKE system overhead.
+  - **Compute Pools**: 
+    - `small-pool`: Regular `e2-small` nodes for frontend.
+    - `bq-spot-pool`: **Spot VMs** (`e2-small`) with `cloud-platform` scopes for BigQuery access (Cost optimized).
   - **Networking**: 
-    - **Gateway API**: Modern Kubernetes networking (v2 of Ingress).
+    - **Gateway API**: Multi-service routing (Path-based: `/` -> Frontend, `/api/*` -> Search API).
     - **Load Balancer**: Global L7 External Managed Load Balancer.
-    - **SSL/TLS**: Google-Managed SSL Certificate (Auto-renewing).
+    - **SSL/TLS**: Google-Managed SSL Certificate with Certificate Manager.
     - **Redirects**: Automatic HTTP-to-HTTPS redirection via GKE FrontendConfig.
     - **Static IP**: Global reserved IP (`34.120.200.52`).
 
@@ -67,6 +72,22 @@ During the deployment, we encountered and resolved several critical infrastructu
 ### 10. Gateway State Sync (Delete/Recreate)
 - **Issue**: Updating the Gateway spec to fix the IP address did not trigger an immediate Load Balancer update.
 - **Solution**: Performed a `kubectl delete` followed by `kubectl apply` on the Gateway resource to force a clean re-provisioning of the Global Load Balancer.
+
+### 11. BigQuery Token Scope Insufficient
+- **Issue**: Search API pod failed to insert data into BigQuery with `ACCESS_TOKEN_SCOPE_INSUFFICIENT` even though the Service Account had the correct IAM roles.
+- **Solution**: Re-provisioned a new Node Pool with `--scopes=https://www.googleapis.com/auth/cloud-platform`. Default GKE scopes are too restrictive for BigQuery streaming.
+
+### 12. BigQuery ID Type Mismatch (UUID vs INT64)
+- **Issue**: Enrollment failed because `crypto.randomUUID()` (string) was sent to a column that BigQuery auto-detected as `INTEGER`.
+- **Solution**: Updated `server.js` to use `Math.floor(Math.random() * 1000000000)` to match the expected integer schema.
+
+### 13. Fault Filter Abort / 411 Length Required
+- **Issue**: Postman requests failed when hitting the Load Balancer IP directly or sending empty POST bodies.
+- **Solution**: Always use the domain name (`devopswithai.in`) for requests to satisfy Host-based routing in Envoy, and ensure `Content-Length` is sent (automatically handled by Postman with a non-empty body).
+
+### 14. Pod Scheduling on Wrong Nodes
+- **Issue**: Search API pod might land on nodes without BigQuery scopes, causing silent failures.
+- **Solution**: Implemented `nodeSelector: purpose: bq` to force the pod to run on the authorized Spot Node Pool.
 
 ---
 

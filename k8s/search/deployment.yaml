@@ -14,10 +14,12 @@ spec:
       labels:
         app: search-api
     spec:
+      nodeSelector:
+        purpose: bq
       containers:
       - name: search-api
-        # Replace with your Docker Hub image once built (e.g., abhishekpathak1111/devopswithai-search:v5)
-        image: abhishekpathak1111/devopswithai-search:v5
+        # Replace with your Docker Hub image once built (e.g., abhishekpathak1111/devopswithai-search:v6)
+        image: abhishekpathak1111/devopswithai-search:v6
         imagePullPolicy: Always
         ports:
         - containerPort: 3000

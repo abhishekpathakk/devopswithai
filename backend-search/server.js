@@ -38,7 +38,7 @@ app.post('/api/enroll', async (req, res) => {
     
     // Construct the row to insert
     const row = {
-      id: crypto.randomUUID(),
+      id: Math.floor(Math.random() * 1000000000), // BigQuery expects INTEGER for id
       name: name,
       email: email,
       phone: phone,
