@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: devopswithai-routing
+  namespace: default
+spec:
+  hosts:
+  - "devopswithai.in"
+  gateways:
+  - devopswithai-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /api
+    route:
+    - destination:
+        host: search-api-service
+        port:
+          number: 5001
+  - route:
+    - destination:
+        host: devopswithai-service
+        port:
+          number: 80
