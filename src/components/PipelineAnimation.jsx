@@ -22,7 +22,7 @@ const PipelineAnimation = () => {
 
   return (
     <div className="pipeline-container">
-      <div className="pipeline-labels" style={{ top: '20px' }}>
+      <div className="pipeline-labels" style={{ top: '10px' }}>
         {labels.map((label, idx) => (
           <motion.div 
             key={idx} 
@@ -39,7 +39,7 @@ const PipelineAnimation = () => {
       </div>
       
       <div className="pipeline-svg-wrapper">
-        <svg viewBox="0 0 1000 400" preserveAspectRatio="none" className="pipeline-svg">
+        <svg viewBox="0 0 1000 450" preserveAspectRatio="none" className="pipeline-svg">
           <defs>
             <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="rgba(100, 150, 255, 0.1)" />
@@ -52,23 +52,21 @@ const PipelineAnimation = () => {
             </filter>
           </defs>
 
-          {/* Background Paths */}
           {xPositions.map((x, i) => (
             <path
               key={`bg-${i}`}
-              d={`M ${x} 50 C ${x} 150, 500 200, 500 250`}
+              d={`M ${x} 80 C ${x} 180, 500 230, 500 280`}
               fill="none"
               stroke="rgba(255,255,255,0.05)"
               strokeWidth="2"
             />
           ))}
-          <path d="M 500 250 L 500 400" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="2" />
+          <path d="M 500 280 L 500 430" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="2" />
 
-          {/* Animated Paths */}
           {xPositions.map((x, i) => (
             <motion.path
               key={`path-${i}`}
-              d={`M ${x} 50 C ${x} 150, 500 200, 500 250`}
+              d={`M ${x} 80 C ${x} 180, 500 230, 500 280`}
               fill="none"
               stroke="url(#lineGradient)"
               strokeWidth="2"
@@ -80,7 +78,7 @@ const PipelineAnimation = () => {
             />
           ))}
           <motion.path 
-            d="M 500 250 L 500 400" 
+            d="M 500 280 L 500 430" 
             fill="none" 
             stroke="url(#lineGradient)" 
             strokeWidth="3"
@@ -95,7 +93,7 @@ const PipelineAnimation = () => {
           {/* Glowing Drop at the end */}
           <motion.circle 
             cx="500" 
-            cy="400" 
+            cy="430" 
             r="4" 
             fill="#fff" 
             filter="url(#glow)"

@@ -64,10 +64,10 @@ const Home = () => {
             <motion.div variants={fadeInUp} className="hero-badge">
               Leading the Digital Frontier
             </motion.div>
-            <motion.h1 variants={fadeInUp}>
+            <motion.h1 variants={fadeInUp} className="text-huge">
               Architecting Intelligence.<br />Engineering Scale.
             </motion.h1>
-            <motion.p variants={fadeInUp}>
+            <motion.p variants={fadeInUp} style={{ fontSize: 'min(1.25rem, 4.5vw)' }}>
               Enterprise Cloud-Native Solutions, AI Integration, and Global-Scale Infrastructure for the Modern World.
             </motion.p>
             <motion.div variants={fadeInUp} className="hero-buttons">
@@ -162,8 +162,8 @@ const Home = () => {
               variants={fadeInUp}
               style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}
             >
-              <h2 className="mb-6">The Engineer Behind the Architecture</h2>
-              <p className="text-xl mb-8">
+              <h2 className="text-title mb-6">The Engineer Behind the Architecture</h2>
+              <p className="mb-8" style={{ fontSize: 'min(1.2rem, 4vw)' }}>
                 As a seasoned <strong>Software Engineer</strong> and <strong>DevOps Specialist</strong>, Abhishek Pathak brings years of experience in building high-scale distributed systems and intelligent AI platforms. My mission is to bridge the gap between complex codebases and production-ready infrastructure.
               </p>
               <div className="hero-buttons" style={{ justifyContent: 'center' }}>

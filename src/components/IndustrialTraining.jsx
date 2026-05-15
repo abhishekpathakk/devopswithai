@@ -59,13 +59,13 @@ const IndustrialTraining = () => {
   }
 
   return (
-    <div style={{ paddingTop: '80px' }}>
+    <div style={{ paddingTop: 'min(80px, 10vh)' }}>
       <section id="training" className="section" style={{ position: 'relative', overflow: 'hidden', backgroundColor: 'var(--color-bg-primary)' }}>
         <div className="container">
           <div className="section-header" style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <div className="badge" style={{ marginBottom: '1rem' }}>Industrial Training</div>
-            <h1 style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>Get Industrial Training Done From Us</h1>
-            <p style={{ fontSize: '1.25rem', color: 'var(--color-text-secondary)', maxWidth: '800px', margin: '0 auto' }}>
+            <h1 className="text-display" style={{ marginBottom: '1rem' }}>Get Industrial Training Done From Us</h1>
+            <p style={{ fontSize: 'min(1.25rem, 4.5vw)', color: 'var(--color-text-secondary)', maxWidth: '800px', margin: '0 auto' }}>
               Transition from an academic environment to an elite engineering workflow. Learn directly from industry veterans through live coding sessions.
             </p>
           </div>
@@ -99,7 +99,7 @@ const IndustrialTraining = () => {
 
           {/* Advanced Projects */}
           <div style={{ marginBottom: '6rem' }}>
-            <h3 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '3rem' }}>Build Extremely Advanced Projects</h3>
+            <h3 className="text-title" style={{ textAlign: 'center', marginBottom: '3rem' }}>Build Extremely Advanced Projects</h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
               {projects.map((proj, idx) => (
                 <div key={idx} className="project-card" style={{ border: '1px solid var(--color-border)', borderRadius: '12px', padding: '2rem', transition: 'all 0.3s', backgroundColor: 'var(--color-bg-secondary)' }}>
@@ -115,8 +115,8 @@ const IndustrialTraining = () => {
           {/* Student Testimonials & Packages */}
           <div className="student-wall" style={{ padding: '4rem 2rem', backgroundColor: 'rgba(100, 150, 255, 0.05)', borderRadius: '24px', border: '1px solid var(--color-border)' }}>
             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-              <h3 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Wall of Fame</h3>
-              <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.1rem' }}>Our students from top universities are securing massive packages across the globe.</p>
+              <h3 className="text-title" style={{ marginBottom: '1rem' }}>Wall of Fame</h3>
+              <p style={{ color: 'var(--color-text-secondary)', fontSize: 'min(1.1rem, 4vw)' }}>Our students from top universities are securing massive packages across the globe.</p>
             </div>
             
             <div className="student-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>

@@ -24,6 +24,27 @@ spec:
       kinds:
       - kind: HTTPRoute
 ---
+---
+# Redirect HTTP to HTTPS
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1
+metadata:
+  name: devopswithai-redirect
+spec:
+  parentRefs:
+  - name: devopswithai-gateway
+    sectionName: http
+  hostnames:
+  - "devopswithai.in"
+  - "www.devopswithai.in"
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
+---
+# Main HTTPS Route
 kind: HTTPRoute
 apiVersion: gateway.networking.k8s.io/v1
 metadata:
@@ -31,6 +52,7 @@ metadata:
 spec:
   parentRefs:
   - name: devopswithai-gateway
+    sectionName: https
   hostnames:
   - "devopswithai.in"
   - "www.devopswithai.in"

@@ -57,8 +57,11 @@ const NeuralBackground = () => {
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(100, 150, 255, 0.5)';
+        ctx.fillStyle = 'rgba(0, 210, 255, 0.8)'; // More intense cyan
         ctx.fill();
+        // Add a small glow to the particle itself
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'rgba(0, 210, 255, 0.5)';
       }
     }
 
@@ -83,8 +86,8 @@ const NeuralBackground = () => {
 
           if (dist < connectionDistance) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(100, 150, 255, ${1 - dist / connectionDistance})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(0, 210, 255, ${(1 - dist / connectionDistance) * 0.8})`; // Higher opacity
+            ctx.lineWidth = 0.8; // Slightly thicker lines
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.stroke();
@@ -114,7 +117,7 @@ const NeuralBackground = () => {
         height: '100%',
         pointerEvents: 'none',
         zIndex: 0,
-        opacity: 0.6
+        opacity: 0.8 // Increased overall opacity
       }}
     />
   );
