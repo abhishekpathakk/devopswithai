@@ -68,7 +68,7 @@ const Home = () => {
               Architecting Intelligence.<br />Engineering Scale.
             </motion.h1>
             <motion.p variants={fadeInUp} style={{ fontSize: 'min(1.25rem, 4.5vw)' }}>
-              Enterprise Cloud-Native Solutions, AI Integration, and Global-Scale Infrastructure for the Modern World.
+              Engineering the next generation of hyper-scalable, AI-driven infrastructure to redefine digital possibilities.
             </motion.p>
             <motion.div variants={fadeInUp} className="hero-buttons">
               <button onClick={handleExploreClick} className="btn btn-primary">
