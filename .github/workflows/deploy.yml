@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
@@ -14,7 +16,7 @@ env:
   REPOSITORY: devops-repo
 
 permissions:
-  contents: 'read'
+  contents: 'write'
   id-token: 'write'
 
 jobs:
@@ -24,6 +26,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Needed for changelog generation
 
     - id: 'auth'
       uses: 'google-github-actions/auth@v2'
@@ -34,16 +38,28 @@ jobs:
     - name: Authorize Docker
       run: gcloud auth configure-docker ${{ env.GAR_LOCATION }}-docker.pkg.dev
 
+    - name: Determine Tags
+      id: meta
+      run: |
+        VERSION="latest"
+        if [[ $GITHUB_REF == refs/tags/* ]]; then
+          VERSION=${GITHUB_REF#refs/tags/}
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+
     - name: Build and Push Docker Image
       run: |
         FULL_IMAGE_NAME="${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ github.sha }}"
+        TAG_IMAGE_NAME="${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ steps.meta.outputs.version }}"
+        
         docker build \
           --platform linux/amd64 \
           -t $FULL_IMAGE_NAME \
-          -t ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:latest \
+          -t $TAG_IMAGE_NAME \
           .
+        
         docker push $FULL_IMAGE_NAME
-        docker push ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:latest
+        docker push $TAG_IMAGE_NAME
 
   deploy:
     name: Deploy to GKE
@@ -67,16 +83,29 @@ jobs:
 
     - name: Deploy to GKE
       run: |
-        # Reconstruct the image name in the deploy stage for robustness
         IMAGE_NAME="${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ github.sha }}"
-        
-        # Replace the placeholder in the deployment manifest
         sed -i "s|IMAGE_URL_PLACEHOLDER|$IMAGE_NAME|g" k8s/deployment.yaml
-        
-        # Apply manifests
         kubectl apply -f k8s/deployment.yaml
         kubectl apply -f k8s/service.yaml
         kubectl apply -f k8s/gateway-api.yaml
-        
-        # Verify rollout
         kubectl rollout status deployment/devopswithai-frontend
+
+  create-release:
+    name: Create GitHub Release
+    needs: [build, deploy]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          body: |
+            ## 🚀 Production Deployment
+            This release was automatically built and deployed to GKE.
+            
+            **Image Tag:** `${{ github.ref_name }}`
+            **Environment:** Production
