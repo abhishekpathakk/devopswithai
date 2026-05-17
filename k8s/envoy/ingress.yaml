@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: envoy-ingress
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    # Keeping the same GKE annotations for SSL and Static IP
+    networking.gke.io/managed-certificates: "devopswithai-cert"
+    kubernetes.io/ingress.global-static-ip-name: "devopswithai-ip"
+    networking.gke.io/v1beta1.FrontendConfig: "devopswithai-frontend-config"
+spec:
+  rules:
+  - host: devopswithai.in
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: envoy-service
+            port:
+              number: 80
+  - host: www.devopswithai.in
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: envoy-service
+            port:
+              number: 80

@@ -50,17 +50,17 @@ gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
 
 echo "8. Deploying to GKE..."
 # Substitute the placeholder with the actual pushed image URL
-# NOTE: Since deploy.sh is now inside k8s/, we don't need the k8s/ prefix for the yaml files.
-sed "s|IMAGE_URL_PLACEHOLDER|$IMAGE_URI|g" deployment.yaml | kubectl apply -f -
-kubectl apply -f service.yaml
+# NOTE: Since deploy.sh is now inside k8s/, we need to use the folder paths.
+sed "s|IMAGE_URL_PLACEHOLDER|$IMAGE_URI|g" frontend/deployment.yaml | kubectl apply -f -
+kubectl apply -f frontend/service.yaml
 
 echo "9. Setting up HTTPS (Managed Certificate) for devopswithai.in..."
 # Reserve a static IP (only runs once)
 gcloud compute addresses create devopswithai-ip --global || echo "IP already reserved"
 
 # Apply the Managed Certificate and Ingress
-kubectl apply -f managed-cert.yaml
-kubectl apply -f ingress.yaml
+kubectl apply -f ingress/managed-cert.yaml
+kubectl apply -f ingress/ingress.yaml
 
 echo "Deployment complete! Fetching your Global IP Address..."
 gcloud compute addresses describe devopswithai-ip --global --format="value(address)"
