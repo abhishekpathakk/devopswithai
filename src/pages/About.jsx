@@ -39,40 +39,128 @@ const About = () => {
       <section className="section">
         <div className="container">
           <div className="about-grid">
-            {/* Image Section */}
+            {/* Image Section - Beautifully Blended with Dark/Cyan UI */}
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               style={{ position: 'relative' }}
             >
-              <div className="image-frame" style={{ 
-                borderRadius: '24px', 
-                overflow: 'hidden', 
-                border: '1px solid var(--color-border)',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
-                background: 'var(--color-bg-secondary)'
-              }}>
-                {/* Use the provided image path */}
-                <img 
-                  src="/assets/abhishek.png" 
-                  alt="Abhishek Pathak - DevOps & AI Architect" 
-                  style={{ width: '100%', height: 'auto', display: 'block' }}
-                />
-              </div>
-              {/* Floating Badge */}
+              {/* Ambient Neon Cyan Backlight Glow */}
               <div style={{
                 position: 'absolute',
-                bottom: '-20px',
-                right: '-20px',
-                background: 'var(--color-accent)',
-                padding: '1.5rem',
-                borderRadius: '16px',
-                boxShadow: '0 10px 20px var(--color-accent-glow)'
+                top: '5%',
+                left: '5%',
+                width: '90%',
+                height: '90%',
+                background: 'radial-gradient(circle, rgba(0, 240, 255, 0.28) 0%, rgba(138, 43, 226, 0.18) 45%, transparent 75%)',
+                filter: 'blur(50px)',
+                zIndex: 0,
+                pointerEvents: 'none',
+              }} />
+
+              {/* Status Pill */}
+              <div style={{
+                position: 'absolute',
+                top: '18px',
+                left: '18px',
+                zIndex: 3,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(5, 8, 17, 0.82)',
+                border: '1px solid rgba(0, 240, 255, 0.4)',
+                backdropFilter: 'blur(12px)',
+                padding: '6px 14px',
+                borderRadius: '100px',
+                fontSize: '0.78rem',
+                fontWeight: '600',
+                color: 'var(--color-accent)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.6)',
+                letterSpacing: '0.04em'
               }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: '800', color: '#000' }}>8+</div>
-                <div style={{ fontSize: '0.7rem', color: '#000', fontWeight: '600', textTransform: 'uppercase' }}>Years Experience</div>
+                <span style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  background: 'var(--color-accent)',
+                  boxShadow: '0 0 10px var(--color-accent)',
+                  display: 'inline-block',
+                }} />
+                Founder & Principal Architect
               </div>
+
+              {/* Glassmorphic Gradient Outer Frame */}
+              <div className="image-frame" style={{ 
+                position: 'relative',
+                zIndex: 1,
+                borderRadius: '28px', 
+                overflow: 'hidden', 
+                padding: '4px',
+                background: 'linear-gradient(135deg, rgba(0, 240, 255, 0.6) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(0, 240, 255, 0.3) 100%)',
+                boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.85), 0 0 40px rgba(0, 240, 255, 0.16)'
+              }}>
+                <div style={{
+                  position: 'relative',
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  background: '#070913'
+                }}>
+                  <img 
+                    src="/assets/abhishek.png" 
+                    alt="Abhishek Pathak - Founder, DevOps & AI Architect" 
+                    style={{ 
+                      width: '100%', 
+                      height: 'auto', 
+                      display: 'block',
+                      objectFit: 'cover',
+                      filter: 'contrast(1.05) brightness(1.02)'
+                    }}
+                  />
+                  {/* Subtle Bottom Gradient Blend Overlay */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: '35%',
+                    background: 'linear-gradient(to top, rgba(7, 9, 19, 0.88) 0%, rgba(7, 9, 19, 0.3) 55%, transparent 100%)',
+                    pointerEvents: 'none'
+                  }} />
+                  {/* Subtle Top-Right Ambient Cyan Glow */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: '45%',
+                    height: '45%',
+                    background: 'radial-gradient(circle at top right, rgba(0, 240, 255, 0.15) 0%, transparent 70%)',
+                    pointerEvents: 'none'
+                  }} />
+                </div>
+              </div>
+
+              {/* Floating Experience Badge */}
+              <motion.div 
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.3, type: 'spring' }}
+                style={{
+                  position: 'absolute',
+                  bottom: '-16px',
+                  right: '-16px',
+                  zIndex: 3,
+                  background: 'linear-gradient(135deg, rgba(0, 240, 255, 0.98), rgba(0, 180, 216, 0.9))',
+                  padding: '1.25rem 1.75rem',
+                  borderRadius: '20px',
+                  boxShadow: '0 15px 35px rgba(0, 240, 255, 0.45), 0 5px 15px rgba(0,0,0,0.5)',
+                  border: '1px solid rgba(255, 255, 255, 0.5)',
+                  backdropFilter: 'blur(10px)'
+                }}
+              >
+                <div style={{ fontSize: '1.75rem', fontWeight: '900', color: '#050811', lineHeight: 1 }}>8+</div>
+                <div style={{ fontSize: '0.72rem', color: '#050811', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em', marginTop: '4px' }}>Years Experience</div>
+              </motion.div>
             </motion.div>
 
             {/* Content Section */}
@@ -100,11 +188,11 @@ const About = () => {
                 style={{ fontSize: 'min(1.2rem, 4.5vw)', color: 'var(--color-text-secondary)', marginBottom: '2rem' }}
               >
                 DevOps Architect, Cloud Infrastructure Specialist, and AI Integration Expert. 
-                With a mission to modernize how enterprises build, scale, and secure their digital core.
+                Trusted by engineering leaders to modernize legacy enterprise platforms for global giants including <strong>Costco</strong>, <strong>FedEx</strong>, and <strong>Hyundai</strong>, utilizing modern IaC like AWS CDK, multi-cloud architectures, and production MLOps.
               </motion.p>
 
               <div className="expertise-tags" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '2rem' }}>
-                {['Google Cloud Platform', 'Kubernetes (GKE)', 'Cloud Spanner', 'BigQuery', 'MLOps', 'Industrial Training'].map((skill, i) => (
+                {['Enterprise Modernization', 'AWS CDK', 'AWS & Cloud Architecture', 'Kubernetes (GKE/EKS)', 'Google Cloud Platform', 'Cloud Spanner', 'BigQuery', 'MLOps', 'Industrial Training'].map((skill, i) => (
                   <span key={i} style={{ 
                     padding: '0.4rem 1rem', 
                     background: 'rgba(255,255,255,0.05)', 
@@ -152,7 +240,7 @@ const About = () => {
             <div className="service-card">
               <Award className="service-icon" />
               <h3>The Impact</h3>
-              <p>From migrating 2M+ rows to Spanner to architecting multi-region GKE clusters, we deliver results that scale with your ambitions.</p>
+              <p>From modernizing mission-critical legacy platforms for Costco, FedEx, and Hyundai to architecting automated AWS CDK pipelines and multi-region clusters, we deliver results that scale globally.</p>
             </div>
           </div>
         </div>

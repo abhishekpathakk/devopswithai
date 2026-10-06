@@ -73,5 +73,20 @@ export const servicesData = {
       author: "Priya Sharma",
       role: "VP of Engineering, SaaSGrid"
     }
+  },
+  "modernization": {
+    title: "Enterprise Application & Cloud Modernization",
+    description: "Transform legacy monoliths and complex workflows into agile, cloud-native architectures. Having delivered high-impact modernizations for industry giants like Costco, FedEx, and Hyundai, we implement AWS CDK, Kubernetes, and automated CI/CD to accelerate delivery while reducing cloud overhead.",
+    features: [
+      { title: "Infrastructure as Code (AWS CDK & Terraform)", desc: "Define cloud infrastructure in TypeScript/Python with reusable constructs, automated drift detection, and zero-touch deployments." },
+      { title: "Legacy Monolith to Microservices", desc: "Decompose legacy applications into decoupled, resilient event-driven microservices without disrupting ongoing operations." },
+      { title: "Cloud Optimization & Scalability", desc: "Re-architect compute, networking, and storage for ultra-high availability, auto-scaling, and up to 40% cost reduction." },
+      { title: "Zero-Downtime Migration Pipelines", desc: "Safely transition production traffic with canary releases, blue/green deployments, and automated rollbacks." }
+    ],
+    testimonial: {
+      quote: "Abhishek modernised our core operational platform using AWS CDK and containerization. What used to take days of manual releases now happens continuously in minutes with rock-solid stability.",
+      author: "Marcus Vance",
+      role: "VP of Cloud Engineering, Enterprise Logistics"
+    }
   }
 };

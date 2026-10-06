@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Cpu, Network, CloudCog, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Cpu, Network, CloudCog, ShieldCheck, Layers } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import NeuralBackground from '../components/NeuralBackground';
 import TestimonialSlider from '../components/TestimonialSlider';
@@ -108,6 +108,14 @@ const Home = () => {
             viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
           >
+            <motion.div variants={fadeInUp}>
+              <Link to="/services/modernization" className="service-card" style={{ display: 'block', height: '100%' }}>
+                <Layers className="service-icon" />
+                <h3>Enterprise Modernization & AWS CDK</h3>
+                <p>Modernizing legacy architectures for industry leaders like Costco, FedEx, and Hyundai. We leverage AWS CDK, microservices, and automated IaC for unmatched velocity.</p>
+              </Link>
+            </motion.div>
+
             <motion.div variants={fadeInUp}>
               <Link to="/services/ai" className="service-card" style={{ display: 'block', height: '100%' }}>
                 <Cpu className="service-icon" />

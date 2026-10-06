@@ -1,16 +1,15 @@
 import React from 'react';
 
 const companies = [
-  "Klarna", "Vanta", "Clay", "Rippling", "Lyft", 
-  "Harvey", "Abridge", "Cloudflare", "Workday", "Cisco", 
-  "Mercor", "Nu", "Monday.com", "Podium", "Bridgewater", 
-  "LinkedIn", "Coinbase"
+  "Costco", "FedEx", "Hyundai", "Cloudflare", "Workday", "Cisco", 
+  "LinkedIn", "Klarna", "Vanta", "Lyft", "Rippling",
+  "Coinbase", "Monday.com", "Bridgewater", "Abridge", "Mercor"
 ];
 
 const LogoTicker = () => {
   return (
     <div className="logo-ticker-section">
-      <p className="ticker-heading">Technologies powering top AI teams, from startups to global enterprises</p>
+      <p className="ticker-heading">Modernizing enterprise platforms & driving AI innovation across global leaders</p>
       <div className="ticker-wrapper">
         <div className="ticker-track">
           {/* First set of logos */}

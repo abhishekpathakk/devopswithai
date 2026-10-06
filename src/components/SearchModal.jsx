@@ -1,14 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Search, X, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import Fuse from 'fuse.js';
+import { searchData } from '../data/searchData';
 
 const SearchModal = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const navigate = useNavigate();
+
+  // Initialize Fuse.js client-side fuzzy search
+  const fuse = useMemo(() => new Fuse(searchData, {
+    keys: ['title', 'description', 'category', 'tags'],
+    threshold: 0.35,
+    ignoreLocation: true,
+  }), []);
 
   useEffect(() => {
     if (!isOpen) {
@@ -17,28 +25,18 @@ const SearchModal = ({ isOpen, onClose }) => {
       setHasSearched(false);
       return;
     }
-    
-    const fetchResults = async () => {
-      setLoading(true);
-      setHasSearched(true);
-      try {
-        const res = await fetch(`/api/search?q=${query}`);
-        if(res.ok) {
-           const data = await res.json();
-           setResults(data.results || []);
-        } else {
-           setResults([]);
-        }
-      } catch (error) {
-        console.error("Search failed", error);
-        setResults([]);
-      }
-      setLoading(false);
-    };
 
-    const debounce = setTimeout(fetchResults, 300);
-    return () => clearTimeout(debounce);
-  }, [query, isOpen]);
+    if (!query.trim()) {
+      // Display initial featured services when search opens
+      setResults(searchData.slice(0, 4));
+      setHasSearched(false);
+      return;
+    }
+
+    setHasSearched(true);
+    const searchResults = fuse.search(query).map(result => result.item);
+    setResults(searchResults);
+  }, [query, isOpen, fuse]);
 
   // Handle escape key
   useEffect(() => {
@@ -49,9 +47,19 @@ const SearchModal = ({ isOpen, onClose }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
-  const handleResultClick = (id) => {
+  const handleResultClick = (item) => {
     onClose();
-    navigate(`/services/${id}`);
+    if (item.path) {
+      navigate(item.path);
+    } else {
+      navigate(`/services/${item.id}`);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && results.length > 0) {
+      handleResultClick(results[0]);
+    }
   };
 
   if (!isOpen) return null;
@@ -70,30 +78,38 @@ const SearchModal = ({ isOpen, onClose }) => {
             <Search className="search-icon-inside" size={20} />
             <input 
               type="text" 
-              placeholder="Search courses, training, catalogs..." 
+              placeholder="Search services, AWS CDK, training, modernization..." 
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
               autoFocus
             />
-            <button className="close-btn" onClick={onClose}><X size={20} /></button>
+            <button className="close-btn" onClick={onClose} aria-label="Close search">
+              <X size={20} />
+            </button>
           </div>
           
           <div className="search-results">
-            {loading ? (
-              <div className="search-loading">Searching...</div>
-            ) : results.length > 0 ? (
-              results.map(item => (
-                <div key={item.id} className="search-result-item" onClick={() => handleResultClick(item.id)}>
-                  <div className="search-result-icon">
-                    <BookOpen size={18} />
+            {results.length > 0 ? (
+              <>
+                {!hasSearched && (
+                  <div style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Featured Services & Topics
                   </div>
-                  <div className="search-result-details">
-                    <h4>{item.title}</h4>
-                    <p>{item.description}</p>
-                    <span className="search-category">{item.category} • {item.level}</span>
+                )}
+                {results.map(item => (
+                  <div key={item.id} className="search-result-item" onClick={() => handleResultClick(item)}>
+                    <div className="search-result-icon">
+                      <BookOpen size={18} />
+                    </div>
+                    <div className="search-result-details">
+                      <h4>{item.title}</h4>
+                      <p>{item.description}</p>
+                      <span className="search-category">{item.category} • {item.level}</span>
+                    </div>
                   </div>
-                </div>
-              ))
+                ))}
+              </>
             ) : hasSearched && query !== '' ? (
               <div className="search-empty">No results found for "{query}"</div>
             ) : null}

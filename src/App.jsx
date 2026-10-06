@@ -95,6 +95,7 @@ function App() {
             <div>
               <div className="footer-title">Expertise</div>
               <div className="footer-links">
+                <Link to="/services/modernization" className="footer-link">Enterprise Modernization</Link>
                 <Link to="/services/ai" className="footer-link">AI Strategy</Link>
                 <Link to="/services/mlops" className="footer-link">MLOps</Link>
                 <Link to="/services/dataops" className="footer-link">DataOps</Link>
