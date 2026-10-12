@@ -31,7 +31,7 @@ npm run lint
 npm run build
 ```
 
-The GitHub Actions workflow runs both checks. Build is blocking; lint is currently advisory while existing lint issues are triaged.
+The GitHub Actions workflow runs both lint and build checks as required steps.
 
 ## Search API
 

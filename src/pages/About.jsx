@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, ExternalLink, Award, ShieldCheck, Zap, User } from 'lucide-react';
+import { Mail, ExternalLink, Award, ShieldCheck, Zap } from 'lucide-react';
 
 const About = () => {
   useEffect(() => {

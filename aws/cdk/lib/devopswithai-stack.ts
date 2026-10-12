@@ -20,7 +20,7 @@ export class DevOpsWithAIStack extends Stack {
     const domainName = props?.domainName || 'devopswithai.in';
     const wwwDomain = `www.${domainName}`;
 
-    // 1. Primary S3 Bucket named 'www.devopswithai.in' (Required by AWS S3 for CNAME routing)
+    // 1. Public S3 website bucket. Public read is required for direct S3 website hosting.
     const siteBucket = new s3.Bucket(this, 'SiteBucket', {
       bucketName: wwwDomain,
       publicReadAccess: true,
@@ -32,11 +32,12 @@ export class DevOpsWithAIStack extends Stack {
       }),
       websiteIndexDocument: 'index.html',
       websiteErrorDocument: 'index.html', // SPA Routing fallback for /about, /services, etc.
-      removalPolicy: RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
+      // Retain the hosted site if the stack is removed; deployment updates still prune stale files.
+      removalPolicy: RemovalPolicy.RETAIN,
+      autoDeleteObjects: false,
     });
 
-    // 2. Apex / Root S3 Bucket named 'devopswithai.in' (Redirects to www.devopswithai.in)
+    // 2. Apex / Root S3 bucket redirects to www over HTTP.
     const rootBucket = new s3.Bucket(this, 'RootBucket', {
       bucketName: domainName,
       publicReadAccess: true,
@@ -50,8 +51,9 @@ export class DevOpsWithAIStack extends Stack {
         hostName: wwwDomain,
         protocol: s3.RedirectProtocol.HTTP,
       },
-      removalPolicy: RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
+      // Retain the redirect bucket and DNS target if the stack is removed.
+      removalPolicy: RemovalPolicy.RETAIN,
+      autoDeleteObjects: false,
     });
 
     // Path to the exact Vite production build

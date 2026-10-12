@@ -1,91 +1,49 @@
-# 🌐 DevOpsWithAI - AWS Zero-Cost Static Site Deployment
+# AWS S3 static website hosting
 
-> **Important**: All existing GCP configurations (`k8s/`, `deploy.sh`, etc.) remain **100% intact and untouched**. This AWS setup lives independently in `aws/`.
+This directory contains AWS deployment examples for the Vite frontend. The CDK stack in `aws/cdk/` deploys the built site directly to Amazon S3 static website hosting.
 
----
+## S3 website behavior
 
-## 💡 Why This Approach? (Zero Cost & 100% Serverless)
+The CDK stack creates two buckets:
 
-1. **Zero Cost / AWS Free Tier**:
-   - No expensive GKE/EKS clusters or EC2 instances running 24/7 (saves $30–$75+/month).
-   - **CloudFront**: 1 TB data transfer out + 10,000,000 requests free every month forever.
-   - **S3**: 5 GB storage free tier.
-2. **Sub-Pages Work Flawlessly (SPA Routing Fallback)**:
-   - Configured with CloudFront Custom Error Responses (`404` and `403` -> `/index.html` with status `200`).
-   - Refreshing or directly opening any sub-page (`/about`, `/industrial-training`, `/services/ai`) works seamlessly without 404 errors.
-3. **Automated S3 Upload & Cache Invalidation**:
-   - The CDK stack bundles the Vite `dist/` directory, uploads it to S3, and invalidates CloudFront edge caches in a single command.
+- `www.<domain>` serves the website, with `index.html` as the SPA error fallback.
+- `<domain>` redirects to the `www` bucket over HTTP.
 
----
+Direct S3 website hosting requires public read access to the website objects. This is intentional for this hosting option. The stack does not create a CloudFront distribution or configure Origin Access Control. S3 website endpoints serve HTTP; use a separately configured HTTPS front end if HTTPS is required.
 
-## ⚡ Method 1: Deploy with AWS CDK (Recommended)
+The buckets are configured to be retained when the CDK stack is deleted. Normal site deployments still upload the new build and prune stale files from the `www` bucket.
 
-### 1. Build the Vite Frontend
-From the repository root:
-```bash
+## Deploy with CDK
+
+Build the frontend from the repository root:
+
+```sh
+npm ci
 npm run build
 ```
 
-### 2. Bootstrap CDK (Only needed once per AWS account/region)
-```bash
+Then deploy the CDK stack:
+
+```sh
 cd aws/cdk
 npx cdk bootstrap
-```
-
-### 3. Deploy the Stack
-```bash
 npx cdk deploy
 ```
 
-That's it! CDK will:
-- Provision the encrypted S3 bucket.
-- Provision the CloudFront distribution with Origin Access Control (OAC).
-- Configure SPA routing for all sub-pages.
-- Automatically upload `dist/` into S3.
-- Invalidate CloudFront cache.
-- Print your live site URL in the terminal outputs:
-  ```
-  Outputs:
-  DevOpsWithAIStack.CloudFrontURL = https://d1234abcd.cloudfront.net
-  ```
+Bootstrap is needed once per AWS account and region. Review the generated CloudFormation changes before deployment, especially if the stack already manages the site buckets.
 
----
+The stack outputs the S3 website endpoints. Configure DNS for the apex and `www` names to point to the corresponding S3 website endpoints using DNS records supported by your provider. The apex bucket redirects to `www`.
 
-## 🚀 Method 2: Deploy with 1-Click Shell Script
+## Alternative shell script
 
-If you prefer a direct shell script without running CDK:
+`aws/deploy.sh` is a separate S3 and CloudFront provisioning script. It does not use the CDK stack. Review its CloudFront origin access and S3 public access configuration before using it; the script is not the direct S3 website setup described above.
 
-```bash
-./aws/deploy.sh
+## Search API CORS
+
+The search API keeps its existing CORS behavior unless `CORS_ORIGINS` is configured. Set it to a comma-separated list of exact browser origins when the API is hosted separately from the website, for example:
+
+```sh
+CORS_ORIGINS=https://devopswithai.in,https://www.devopswithai.in
 ```
 
----
-
-## 🛠️ Method 3: Deploy with Terraform
-
-If you prefer Terraform:
-
-```bash
-npm run build
-cd aws/terraform
-terraform init
-terraform apply -var="bucket_name=devopswithai-static-$(aws sts get-caller-identity --query Account --output text)"
-aws s3 sync ../../dist s3://YOUR_BUCKET_NAME/
-```
-
----
-
-## 🔗 Custom Domain Setup (`devopswithai.in`)
-
-To connect `devopswithai.in` to your AWS CloudFront distribution:
-
-1. **In your DNS Provider (GoDaddy, Namecheap, Cloudflare, etc.)**:
-   - Add a **CNAME** or **ALIAS** record:
-     - **Name / Host**: `@` (or `www`)
-     - **Type**: `CNAME` (or `ALIAS` / `ANAME`)
-     - **Value / Target**: `dXXXXXXXXXX.cloudfront.net` (Your CloudFront domain output from CDK)
-
-2. **For Free SSL on `devopswithai.in`**:
-   - In [AWS Certificate Manager (ACM)](https://console.aws.amazon.com/acm) in **`us-east-1`**, request a free public certificate for `devopswithai.in` and `*.devopswithai.in`.
-   - Validate via DNS (add the CNAME record ACM provides).
-   - In CloudFront Distribution settings, select your ACM certificate and add `devopswithai.in` under Alternate Domain Names (CNAMEs).
+CORS controls which browser origins can read API responses; it is not authentication or protection against direct HTTP clients.

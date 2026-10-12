@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   frontend:
-    name: Frontend build and lint baseline
+    name: Frontend lint and build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -24,10 +24,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint (advisory while existing issues are triaged)
-        continue-on-error: true
+      - name: Lint
         run: npm run lint
 
       - name: Build
-        if: always()
         run: npm run build

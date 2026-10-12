@@ -1,5 +1,3 @@
-import React from 'react';
-
 const companies = [
   "Costco", "FedEx", "Hyundai", "Cloudflare", "Workday", "Cisco", 
   "LinkedIn", "Klarna", "Vanta", "Lyft", "Rippling",
