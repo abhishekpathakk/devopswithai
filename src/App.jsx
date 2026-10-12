@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { BrainCircuit, Moon, Sun, Search, Menu, X } from 'lucide-react';
+import { BrainCircuit, Search, Menu, X } from 'lucide-react';
 import CustomCursor from './components/CustomCursor';
 import Home from './pages/Home';
 import ServicePage from './pages/ServicePage';
@@ -10,7 +10,6 @@ import SearchModal from './components/SearchModal';
 import './index.css';
 
 function App() {
-  const [theme, setTheme] = useState('dark'); // Default to dark
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile menu state
