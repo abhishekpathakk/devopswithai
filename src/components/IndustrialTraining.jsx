@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Users, Code, Award, Briefcase, GraduationCap, ArrowRight, Star } from 'lucide-react';
+import { Terminal, Users, Code, Briefcase, GraduationCap, ArrowRight } from 'lucide-react';
 
 const students = [
   { name: "Aditi S.", pkg: "55 LPA", role: "SDE-2 at Google", college: "VIT Vellore" },
