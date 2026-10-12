@@ -52,11 +52,11 @@ function validateEnrollment(body) {
 
   for (const field of fields) {
     if (typeof body[field] !== 'string') {
-      return { error: `\${field} must be a string.` };
+      return { error: `${field} must be a string.` };
     }
     values[field] = body[field].trim();
     if (!values[field] || values[field].length > 200) {
-      return { error: `\${field} must contain 1 to 200 characters.` };
+      return { error: `${field} must contain 1 to 200 characters.` };
     }
   }
 
@@ -133,7 +133,7 @@ app.post('/api/enroll', async (req, res) => {
     // Wait for both to finish
     await Promise.all([bqPromise, spannerPromise]);
 
-    console.log(`Successfully enrolled \${email} in BigQuery and Spanner.`);
+    console.log(`Successfully enrolled ${email} in BigQuery and Spanner.`);
     return res.status(200).json({ success: true, message: 'Enrollment successful!' });
   } catch (error) {
     console.error('ERROR during enrollment:', error);
@@ -163,11 +163,11 @@ app.get('/api/search', (req, res) => {
   return res.json({
     results,
     count: results.length,
-    message: `Search results for: \${query}`
+    message: `Search results for: ${query}`
   });
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Search API with Spanner & BigQuery running on port \${PORT}`);
+  console.log(`Search API with Spanner & BigQuery running on port ${PORT}`);
 });
