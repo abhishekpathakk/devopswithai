@@ -31,6 +31,8 @@ npm run lint
 npm run build
 ```
 
+The GitHub Actions workflow runs both checks. Build is blocking; lint is currently advisory while existing lint issues are triaged.
+
 ## Search API
 
 The API is a separate Node.js service; install its dependencies from its own directory:
