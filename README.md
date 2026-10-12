@@ -1,20 +1,57 @@
-# React + Vite
+# DevOpsWithAI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React website for Abhishek Pathak’s DevOps and AI consultancy, with a separate search and enrollment API and deployment examples for Google Cloud and AWS.
 
-Currently, two official plugins are available:
+## What’s in this repository
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Web app:** React 19, Vite, React Router, and Framer Motion. Pages include Home, About, Industrial Training, and service detail routes.
+- **Search and enrollment API:** Express service in `backend-search/`. Search uses Fuse.js; enrollment writes to BigQuery and Cloud Spanner.
+- **Deployment assets:** Docker and Kubernetes/GKE configuration under `k8s/`, plus AWS deployment examples under `aws/`.
 
-## React Compiler
+## Run the website locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Requires Node.js 22 or a compatible version supported by the locked Vite toolchain.
 
-## Expanding the ESLint configuration
+```sh
+npm ci
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Vite prints the local URL. To make a production build and preview it locally:
 
-## 🌐 Live Website Preview
+```sh
+npm run build
+npm run preview
+```
 
-![Website Preview](public/website-preview.png)
+Available checks:
+
+```sh
+npm run lint
+npm run build
+```
+
+The GitHub Actions workflow runs both checks. Build is blocking; lint is currently advisory while existing lint issues are triaged.
+
+## Search API
+
+The API is a separate Node.js service; install its dependencies from its own directory:
+
+```sh
+cd backend-search
+npm ci
+npm start
+```
+
+It listens on port 3000 by default (override with `PORT`). Routes include `GET /api/health`, `GET /api/search?q=...`, and `POST /api/enroll`. Enrollment requires Google Cloud credentials and access to the BigQuery dataset/table and Spanner instance/database referenced in `server.js`.
+
+## Deployment
+
+- **GKE:** The Dockerfile at the repository root builds and serves the frontend. Kubernetes manifests and deployment guidance are under `k8s/`; the GitHub Actions workflow describes the GKE image build and deploy path.
+- **AWS:** See [aws/README.md](aws/README.md) for the separate S3/CDK and shell-script deployment options. Review the selected stack’s access, domain, and deletion settings before using it for production.
+
+The AWS and GKE configurations are separate examples and have different prerequisites. Follow the guide for the environment you intend to deploy.
+
+## Project status
+
+This repository currently provides lint and production-build scripts. It does not define an automated application test suite yet.
